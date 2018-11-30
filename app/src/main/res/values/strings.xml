@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">OmniCalc</string>
+    <string name="title_activity_standard_calc">StandardCalc</string>
 </resources>

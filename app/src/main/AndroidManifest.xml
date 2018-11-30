@@ -16,6 +16,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Options" />
+        <activity
+            android:name=".StandardCalc"
+            android:label="@string/title_activity_standard_calc"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AlgebraCalc" />
+        <activity android:name=".GraphingCalc"></activity>
     </application>
 
 </manifest>
