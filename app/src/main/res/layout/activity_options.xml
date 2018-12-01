@@ -32,9 +32,9 @@
         android:id="@+id/graphing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="133dp"
+        android:layout_marginBottom="26dp"
         android:text="Grapher"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/VoiceButton"
         app:layout_constraintStart_toStartOf="@+id/Algebra"
         app:layout_constraintTop_toBottomOf="@+id/Algebra" />
 
@@ -53,4 +53,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/VoiceButton"
+        android:layout_width="41dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginBottom="75dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/graphing"
+        app:srcCompat="@android:drawable/ic_btn_speak_now" />
 </android.support.constraint.ConstraintLayout>
