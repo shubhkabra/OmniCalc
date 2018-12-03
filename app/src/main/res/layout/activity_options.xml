@@ -45,24 +45,53 @@
         android:layout_marginStart="65dp"
         android:layout_marginTop="23dp"
         android:layout_marginEnd="65dp"
-        android:layout_marginBottom="57dp"
+        android:layout_marginBottom="284dp"
         android:text="Choose Mode"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/normie"
+        app:layout_constraintBottom_toTopOf="@+id/stopbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/VoiceButton"
-        android:layout_width="41dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="33dp"
+        android:layout_marginEnd="157dp"
         android:layout_marginBottom="75dp"
         android:clickable="true"
+        android:onClick="start"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/stopbutton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/graphing"
         app:srcCompat="@android:drawable/ic_btn_speak_now" />
+
+    <TextView
+        android:id="@+id/Statustext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="228dp"
+        android:layout_marginBottom="82dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/VoiceButton"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/stopbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="109dp"
+        android:clickable="true"
+        android:onClick="stop"
+        android:text="StopRecording"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/VoiceButton"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 </android.support.constraint.ConstraintLayout>

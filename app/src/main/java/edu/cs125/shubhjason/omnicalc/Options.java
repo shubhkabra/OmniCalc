@@ -10,15 +10,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 import java.util.List;
 
-public class Options extends AppCompatActivity {
-    private SpeechRecognizer speechrecognizerforoptions;
+public class Options extends AppCompatActivity implements RecognitionListener {
+    private SpeechRecognizer speechrecognizerforoptions = null;
+    private Intent voiceintent;
+    private int id;
+    private String num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
+        speechrecognizerforoptions = SpeechRecognizer.createSpeechRecognizer(this);
+        speechrecognizerforoptions.setRecognitionListener(this);
+
+
         final Button normiebutton = findViewById(R.id.normie);
         normiebutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,72 +53,49 @@ public class Options extends AppCompatActivity {
             }
         });
         final FloatingActionButton voicebuttonoptions = findViewById(R.id.VoiceButton);
-            voicebuttonoptions.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent voiceintent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                    voiceintent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                    voiceintent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
-                    speechrecognizerforoptions.startListening(voiceintent);
+        voiceintent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
 
                 }
-            });
-
-        initializeSpeechRecognizer();
-
-
+    public void start(View view)
+    {
+        num = Integer.toString(++id);
+        speechrecognizerforoptions.startListening(voiceintent);
+        Log.d("Voices", "Starting");
     }
 
-    private void initializeSpeechRecognizer() {
-        if (SpeechRecognizer.isRecognitionAvailable(this)) {
-            speechrecognizerforoptions = SpeechRecognizer.createSpeechRecognizer(this);
-            speechrecognizerforoptions.setRecognitionListener(new RecognitionListener() {
-                @Override
-                public void onReadyForSpeech(Bundle params) {
-                    Log.d("Voicee", "ready for speech");
-                }
-
-                @Override
-                public void onBeginningOfSpeech() {
-                    Log.d("Voicee", "begin speech");
-                }
-
-                @Override
-                public void onRmsChanged(float rmsdB) {
-
-                }
-
-                @Override
-                public void onBufferReceived(byte[] buffer) {
-
-                }
-
-                @Override
-                public void onEndOfSpeech() {
-                    Log.d("Voicee", "done talking");
-                }
-
-                @Override
-                public void onError(int error) {
-
-                }
-
-                @Override
-                public void onResults(Bundle results) {
-                    List<String> inputresults = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                    Log.d("Voice!", inputresults.get(0));
-                }
-
-                @Override
-                public void onPartialResults(Bundle partialResults) {
-
-                }
-
-                @Override
-                public void onEvent(int eventType, Bundle params) {
-
-                }
-            });
-        }
+    public void stop(View view)
+    {
+        speechrecognizerforoptions.stopListening();
+        Log.d("Voices", "Stopped");
     }
-}
+    @Override public void onReadyForSpeech(Bundle params){
+        Log.d("Voices", "Ready for Speech");
+    }
+    @Override public void onBeginningOfSpeech(){
+        Log.d("Voices", "Beginning of speech");
+    }
+    @Override public void onRmsChanged(float rms_dB){
+
+    }
+    @Override public void onBufferReceived(byte[] buffer){
+
+    }
+    @Override public void onEndOfSpeech(){
+        Log.d("Voices", "End of speech");
+    }
+    @Override public void onResults(Bundle results){
+        List <String> inputresults = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+    }
+    @Override public void onPartialResults(Bundle partialResults){
+
+    }
+    @Override public void onEvent(int eventType, Bundle params){
+
+    }
+    @Override public void onError(int error){
+
+    }
+            }
+
+
