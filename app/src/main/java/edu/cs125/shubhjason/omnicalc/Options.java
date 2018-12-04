@@ -14,19 +14,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class Options extends AppCompatActivity implements RecognitionListener {
-    private SpeechRecognizer speechrecognizerforoptions = null;
-    private Intent voiceintent;
-    private int id;
-    private String num;
+public class Options extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
-        speechrecognizerforoptions = SpeechRecognizer.createSpeechRecognizer(this);
-        speechrecognizerforoptions.setRecognitionListener(this);
-
 
         final Button normiebutton = findViewById(R.id.normie);
         normiebutton.setOnClickListener(new View.OnClickListener() {
@@ -53,49 +46,7 @@ public class Options extends AppCompatActivity implements RecognitionListener {
             }
         });
         final FloatingActionButton voicebuttonoptions = findViewById(R.id.VoiceButton);
-        voiceintent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-
-
-                }
-    public void start(View view)
-    {
-        num = Integer.toString(++id);
-        speechrecognizerforoptions.startListening(voiceintent);
-        Log.d("Voices", "Starting");
     }
-
-    public void stop(View view)
-    {
-        speechrecognizerforoptions.stopListening();
-        Log.d("Voices", "Stopped");
-    }
-    @Override public void onReadyForSpeech(Bundle params){
-        Log.d("Voices", "Ready for Speech");
-    }
-    @Override public void onBeginningOfSpeech(){
-        Log.d("Voices", "Beginning of speech");
-    }
-    @Override public void onRmsChanged(float rms_dB){
-
-    }
-    @Override public void onBufferReceived(byte[] buffer){
-
-    }
-    @Override public void onEndOfSpeech(){
-        Log.d("Voices", "End of speech");
-    }
-    @Override public void onResults(Bundle results){
-        List <String> inputresults = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-    }
-    @Override public void onPartialResults(Bundle partialResults){
-
-    }
-    @Override public void onEvent(int eventType, Bundle params){
-
-    }
-    @Override public void onError(int error){
-
-    }
-            }
+}
 
 
