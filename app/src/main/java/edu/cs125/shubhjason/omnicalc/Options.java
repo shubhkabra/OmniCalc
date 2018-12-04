@@ -86,12 +86,24 @@ public class Options extends AppCompatActivity {
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     textoutput.setText(result.get(0));
+                    if (result.contains("algebra") || result.contains("Algebra")) {
+                        Intent Algebraintent = new Intent(Options.this, AlgebraCalc.class);
+                        startActivity(Algebraintent);
+                    } else if (result.contains("Standard") || result.contains("standard")) {
+                        Intent standardintent = new Intent(Options.this, StandardCalc.class);
+                        startActivity(standardintent);
+                    } else if (result.contains("graphing") || result.contains("Graphing")) {
+                        Intent graphingintent = new Intent(Options.this, GraphingCalc.class);
+                        startActivity(graphingintent);
+                    }
+
+                    break;
                 }
-                break;
             }
 
         }
     }
+
 }
 
 
