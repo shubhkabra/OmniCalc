@@ -21,7 +21,9 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Click here for manual entry" />
+            android:maxLines="1"
+            android:hint="Click here for manual entry"
+            android:imeOptions="actionGo" />
     </android.support.design.widget.TextInputLayout>
 
     <TextView
