@@ -57,6 +57,15 @@ public class AlgebraCalc extends AppCompatActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     final EditText answerThing = findViewById(R.id.edittext);
                     answerThing.setText(result.get(0));
+                    String fullExpression = answerThing.getText().toString();
+                    int equalsInd = fullExpression.indexOf("equals");
+                    String newExpr = fullExpression.substring(0, equalsInd) + "="
+                            + fullExpression.substring(equalsInd + 6);
+                    String[] sides = fullExpression.split("=");
+                    double[] solutions = AlgebraStuff.solve(sides);
+                    String printSolns = "x = " + solutions[0];
+                    final TextView answerBox = findViewById(R.id.textView3);
+                    answerBox.setText(printSolns);
                     break;
                 }
             }
