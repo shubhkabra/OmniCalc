@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import org.mariuszgromada.math.mxparser.*;
 
 import javax.xml.xpath.XPathExpression;
 
