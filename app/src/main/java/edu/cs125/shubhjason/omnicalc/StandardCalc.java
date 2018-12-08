@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.mariuszgromada.math.mxparser.Expression;
 import org.mariuszgromada.math.mxparser.mathcollection.Calculus;
 
 import java.util.ArrayList;
@@ -60,6 +61,12 @@ public class StandardCalc extends AppCompatActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     final EditText answerThing = findViewById(R.id.edittext);
                     answerThing.setText(result.get(0));
+                    String bc = answerThing.getText().toString();
+                    Expression ab = new Expression(bc);
+                    Double xyz = ab.calculate();
+                    String theans = xyz.toString();
+                    final TextView answer = findViewById(R.id.textView3);
+                    answer.setText(theans);
                     break;
                 }
             }
