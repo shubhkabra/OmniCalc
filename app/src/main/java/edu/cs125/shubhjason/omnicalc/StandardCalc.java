@@ -9,9 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.mariuszgromada.math.mxparser.*;
+import org.mariuszgromada.math.mxparser.mathcollection.Calculus;
+
 
 public class StandardCalc extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
