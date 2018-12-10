@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 import javax.xml.xpath.XPathExpression;
@@ -56,14 +58,24 @@ public class AlgebraCalc extends AppCompatActivity {
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     final EditText answerThing = findViewById(R.id.edittext);
-                    answerThing.setText(result.get(0));
-                    String fullExpression = answerThing.getText().toString();
-                    int equalsInd = fullExpression.indexOf("equals");
-                    String newExpr = fullExpression.substring(0, equalsInd) + "="
-                            + fullExpression.substring(equalsInd + 6);
-                    String[] sides = fullExpression.split("=");
-                    double[] solutions = AlgebraStuff.solve(sides);
-                    String printSolns = "x = " + solutions[0];
+
+                    Log.d("Algebra", "Input: " + result.get(0));
+                    String fullExpression = result.get(0);
+                    String newExpr = makeMathy(fullExpression);
+                    Log.d("Algebra", "Transform: " + newExpr);
+                    answerThing.setText(newExpr);
+                    String[] sides = newExpr.split("=");
+                    ArrayList<Double> solutions = AlgebraStuff.solve(sides);
+                    String printSolns = "";
+                    if (solutions == null || solutions.size() == 0) {
+                        printSolns = "No Solution";
+                    } else {
+                        printSolns = "x = " + solutions.get(0);
+                        for (int i = 1; i < solutions.size(); i++) {
+                            printSolns.concat(", " + solutions.get(i));
+                        }
+                        System.out.println();
+                    }
                     final TextView answerBox = findViewById(R.id.textView3);
                     answerBox.setText(printSolns);
                     break;
@@ -71,5 +83,33 @@ public class AlgebraCalc extends AppCompatActivity {
             }
 
         }
+    }
+
+    private String makeMathy(final String tooWordy) {
+        HashMap<String, String> keyWords = new HashMap<>();
+        keyWords.put("equals", "=");
+        keyWords.put("plus", "+");
+        keyWords.put("minus", "-");
+        keyWords.put("times", "*");
+        keyWords.put("divided by ", "/");
+        keyWords.put("squared", "^2");
+        keyWords.put("cubed", "^3");
+        keyWords.put("to the ", "^");
+        keyWords.put("second", "2");
+        keyWords.put("third", "3");
+        keyWords.put("fourth ", "4");
+        keyWords.put("fifth ", "5");
+        keyWords.put("sixth ", "6");
+        keyWords.put("seventh ", "7");
+        keyWords.put("eighth", "8");
+        String lessWordy = new String(tooWordy);
+        for (String keyWord: keyWords.keySet()) {
+            int ind = lessWordy.indexOf(keyWord);
+            Log.d("Transform", "equ: " + lessWordy + "key: " + keyWord + " ind: " + ind);
+            if (ind != -1) {
+                lessWordy = lessWordy.replace(keyWord, keyWords.get(keyWord));
+            }
+        }
+        return lessWordy;
     }
 }
