@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.objecthunter.exp4j.tokenizer.UnknownFunctionOrVariableException;
+
 import org.mariuszgromada.math.mxparser.Expression;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import javax.xml.xpath.XPathExpression;
 
 public class AlgebraCalc extends AppCompatActivity {
     private final int Reqcodespeechinput = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,21 +45,9 @@ public class AlgebraCalc extends AppCompatActivity {
             public void onClick(View v) {
                 String fullExpression = answerThing.getText().toString();
                 String newExpr = makeMathy(fullExpression);
-                answerThing.setText(newExpr);
-                String[] sides = newExpr.split("=");
-                ArrayList<Double> solutions = AlgebraStuff.solve(sides);
-                String printSolns = "";
-                if (solutions == null || solutions.size() == 0) {
-                    printSolns = "No Solution";
-                } else {
-                    printSolns = "x = " + solutions.get(0);
-                    for (int i = 1; i < solutions.size(); i++) {
-                        printSolns.concat(", " + solutions.get(i));
-                    }
-                    System.out.println();
-                }
+                boolean triggy = hasTrig(newExpr);
                 final TextView answerBox = findViewById(R.id.textView3);
-                answerBox.setText(printSolns);
+                answerBox.setText(doAlgebra(newExpr, triggy));
             }
         });
     }
@@ -88,22 +79,11 @@ public class AlgebraCalc extends AppCompatActivity {
                     Log.d("Algebra", "Input: " + result.get(0));
                     String fullExpression = result.get(0);
                     String newExpr = makeMathy(fullExpression);
+                    boolean triggy = hasTrig(newExpr);
                     Log.d("Algebra", "Transform: " + newExpr);
                     answerThing.setText(newExpr);
-                    String[] sides = newExpr.split("=");
-                    ArrayList<Double> solutions = AlgebraStuff.solve(sides);
-                    String printSolns = "";
-                    if (solutions == null || solutions.size() == 0) {
-                        printSolns = "No Solution";
-                    } else {
-                        printSolns = "x = " + solutions.get(0);
-                        for (int i = 1; i < solutions.size(); i++) {
-                            printSolns.concat(", " + solutions.get(i));
-                        }
-                        System.out.println();
-                    }
                     final TextView answerBox = findViewById(R.id.textView3);
-                    answerBox.setText(printSolns);
+                    answerBox.setText(doAlgebra(newExpr, triggy));
                     break;
                 }
             }
@@ -137,5 +117,38 @@ public class AlgebraCalc extends AppCompatActivity {
             }
         }
         return lessWordy;
+    }
+
+    private static String doAlgebra(String newExpr, boolean trig) {
+        String[] sides = newExpr.split("=");
+        ArrayList<Double> solutions;
+        String printSolns = "No Solution";
+        try {
+            solutions = AlgebraStuff.solve(sides, trig);
+        } catch (Exception e) {
+            printSolns = "Error. Check your equation.";
+            solutions = null;
+        }
+        if (printSolns.equals("No Solution")) {
+            // No error
+            if (solutions != null && solutions.size() > 0) {
+                // There is a solution
+                printSolns = "x = " + solutions.get(0);
+                for (int i = 1; i < solutions.size(); i++) {
+                    printSolns += ", " + solutions.get(i);
+                }
+            }
+        }
+        return printSolns;
+    }
+
+    private static boolean hasTrig(String expr) {
+        String[] TRIG_FUNCTIONS = {"sin", "cos", "tan"};
+        for (String trig: TRIG_FUNCTIONS) {
+            if (expr.contains(trig)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
