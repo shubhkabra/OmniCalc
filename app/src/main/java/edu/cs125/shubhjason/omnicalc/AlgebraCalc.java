@@ -129,13 +129,19 @@ public class AlgebraCalc extends AppCompatActivity {
             printSolns = "Error. Check your equation.";
             solutions = null;
         }
+        Log.d("Algebra", "numSoln" + solutions.size());
         if (printSolns.equals("No Solution")) {
             // No error
             if (solutions != null && solutions.size() > 0) {
                 // There is a solution
-                printSolns = "x = " + solutions.get(0);
-                for (int i = 1; i < solutions.size(); i++) {
-                    printSolns += ", " + solutions.get(i);
+                if (solutions.size() > 40) {
+                    // Probably Infinite Solutions
+                    printSolns = "x = all real numbers";
+                } else {
+                    printSolns = "x = " + solutions.get(0);
+                    for (int i = 1; i < solutions.size(); i++) {
+                        printSolns += ", " + solutions.get(i);
+                    }
                 }
             }
         }

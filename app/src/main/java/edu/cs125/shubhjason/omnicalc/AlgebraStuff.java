@@ -44,6 +44,7 @@ public class AlgebraStuff {
                 double fx, fxLeft, fxRight, derivFx;
                 double xThis = x0, xNext = x0;
                 int iter = 0;
+                boolean soln = true;
 
                 do {
                     iter++;
@@ -51,6 +52,10 @@ public class AlgebraStuff {
                     leftExpr.setVariable("x", xThis);
                     rightExpr.setVariable("x", xThis);
                     fx = leftExpr.evaluate() - rightExpr.evaluate();
+                    Log.d("Algebra", "initCond: " + x0 + " fx: " + fx + " iter: " + iter);
+                    if (fx == 0) {
+                        break;
+                    }
 
                     leftExpr.setVariable("x", xThis - .005);
                     rightExpr.setVariable("x", xThis - .005);
@@ -66,7 +71,7 @@ public class AlgebraStuff {
                     //System.out.println("xThis: " + xThis + " xNext: " + xNext);
                 } while (Math.abs(xNext - xThis) > .000001 && iter < 100);
                 if (iter < 100) {
-                    if (numSolns == 0) {
+                    if (numSolns == 0 && !Double.isNaN(xNext)) {
                         if (!trig || (xNext >= 0 && xNext <= 2 * Math.PI)) {
                             xNext = Math.round(xNext * 100000d) / 100000d;
                             Log.d("Algebra: ", "x = " + xNext);
@@ -84,7 +89,6 @@ public class AlgebraStuff {
                         }
                     }
                 }
-
             }
             Collections.sort(solutions);
             return solutions;

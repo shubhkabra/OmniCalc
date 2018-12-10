@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -41,7 +42,12 @@ public class StandardCalc extends AppCompatActivity {
                 String newText = answerThing.getText().toString();
                 Expression newExpr = new Expression(newText);
                 Double result = newExpr.calculate();
-                String theAns = result.toString();
+                String theAns;
+                if (result.isNaN()) {
+                    theAns = "Error.";
+                } else {
+                    theAns = result.toString();
+                }
                 final  TextView answer = findViewById(R.id.textView3);
                 answer.setText(theAns);
             }
@@ -76,7 +82,12 @@ public class StandardCalc extends AppCompatActivity {
                     String bc = answerThing.getText().toString();
                     Expression ab = new Expression(bc);
                     Double xyz = ab.calculate();
-                    String theAns = xyz.toString();
+                    String theAns;
+                    if (xyz.isNaN()) {
+                        theAns = "Error.";
+                    } else {
+                        theAns = xyz.toString();
+                    }
                     final TextView answer = findViewById(R.id.textView3);
                     answer.setText(theAns);
                     break;
