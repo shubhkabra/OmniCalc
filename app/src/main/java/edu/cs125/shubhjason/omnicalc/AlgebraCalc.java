@@ -40,12 +40,23 @@ public class AlgebraCalc extends AppCompatActivity {
         updatebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newText = answerThing.getText().toString();
-                Expression newExpr = new Expression(newText);
-                Double result = newExpr.calculate();
-                String theAns = result.toString();
-                final  TextView answer = findViewById(R.id.textView3);
-                answer.setText(theAns);
+                String fullExpression = answerThing.getText().toString();
+                String newExpr = makeMathy(fullExpression);
+                answerThing.setText(newExpr);
+                String[] sides = newExpr.split("=");
+                ArrayList<Double> solutions = AlgebraStuff.solve(sides);
+                String printSolns = "";
+                if (solutions == null || solutions.size() == 0) {
+                    printSolns = "No Solution";
+                } else {
+                    printSolns = "x = " + solutions.get(0);
+                    for (int i = 1; i < solutions.size(); i++) {
+                        printSolns.concat(", " + solutions.get(i));
+                    }
+                    System.out.println();
+                }
+                final TextView answerBox = findViewById(R.id.textView3);
+                answerBox.setText(printSolns);
             }
         });
     }
