@@ -21,7 +21,6 @@ import java.util.Locale;
 
 public class StandardCalc extends AppCompatActivity {
     private final int Reqcodespeechinput = 100;
-    Calculus ab = new Calculus();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +31,19 @@ public class StandardCalc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 promptspeechinput();
+            }
+        });
+        final EditText answerThing = findViewById(R.id.edittext);
+        Button updatebutton = findViewById(R.id.updatebutton);
+        updatebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newText = answerThing.getText().toString();
+                Expression newExpr = new Expression(newText);
+                Double result = newExpr.calculate();
+                String theAns = result.toString();
+                final  TextView answer = findViewById(R.id.textView3);
+                answer.setText(theAns);
             }
         });
 
@@ -64,27 +76,12 @@ public class StandardCalc extends AppCompatActivity {
                     String bc = answerThing.getText().toString();
                     Expression ab = new Expression(bc);
                     Double xyz = ab.calculate();
-                    String theans = xyz.toString();
+                    String theAns = xyz.toString();
                     final TextView answer = findViewById(R.id.textView3);
-                    answer.setText(theans);
-                    Button updatebutton = findViewById(R.id.updatebutton);
-                    updatebutton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            String bc = answerThing.getText().toString();
-                            Expression ab = new Expression(bc);
-                            Double xyz = ab.calculate();
-                            String theans = xyz.toString();
-                            final  TextView answer = findViewById(R.id.textView3);
-                            answer.setText(theans);
-                        }
-                    });
-
+                    answer.setText(theAns);
                     break;
                 }
             }
-
         }
     }
-
 }

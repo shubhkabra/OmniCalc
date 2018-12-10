@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.mariuszgromada.math.mxparser.Expression;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -27,6 +29,19 @@ public class GraphingCalc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 promptspeechinput();
+            }
+        });
+        final EditText answerThing = findViewById(R.id.edittext);
+        Button updatebutton = findViewById(R.id.updatebutton);
+        updatebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newText = answerThing.getText().toString();
+                Expression newExpr = new Expression(newText);
+                Double result = newExpr.calculate();
+                String theAns = result.toString();
+                final  TextView answer = findViewById(R.id.textView3);
+                answer.setText(theAns);
             }
         });
     }
