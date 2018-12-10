@@ -67,6 +67,19 @@ public class StandardCalc extends AppCompatActivity {
                     String theans = xyz.toString();
                     final TextView answer = findViewById(R.id.textView3);
                     answer.setText(theans);
+                    Button updatebutton = findViewById(R.id.updatebutton);
+                    updatebutton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String bc = answerThing.getText().toString();
+                            Expression ab = new Expression(bc);
+                            Double xyz = ab.calculate();
+                            String theans = xyz.toString();
+                            final  TextView answer = findViewById(R.id.textView3);
+                            answer.setText(theans);
+                        }
+                    });
+
                     break;
                 }
             }

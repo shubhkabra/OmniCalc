@@ -61,7 +61,7 @@ public class AlgebraCalc extends AppCompatActivity {
                     int equalsInd = fullExpression.indexOf("equals");
                     String newExpr = fullExpression.substring(0, equalsInd) + "="
                             + fullExpression.substring(equalsInd + 6);
-                    String[] sides = fullExpression.split("=");
+                    String[] sides = newExpr.split("=");
                     double[] solutions = AlgebraStuff.solve(sides);
                     String printSolns = "x = " + solutions[0];
                     final TextView answerBox = findViewById(R.id.textView3);
