@@ -22,7 +22,7 @@ public class AlgebraStuff {
                 initVals[index++] = i;
             }
         } else {
-            initVals = new double[101];
+            initVals = new double[51];
             int index = 0;
             for (double i = -5.0; i <= 5.0; i += 0.2) {
                 initVals[index++] = Math.pow(i, 5);
@@ -69,8 +69,8 @@ public class AlgebraStuff {
                     //System.out.println("deriv: " + derivFx);
                     xNext = xThis - (fx / derivFx);
                     //System.out.println("xThis: " + xThis + " xNext: " + xNext);
-                } while (Math.abs(xNext - xThis) > .000001 && iter < 100);
-                if (iter < 100) {
+                } while (Math.abs(xNext - xThis) > .000001 && iter < 50);
+                if (iter < 50) {
                     if (numSolns == 0 && !Double.isNaN(xNext)) {
                         if (!trig || (xNext >= 0 && xNext <= 2 * Math.PI)) {
                             xNext = Math.round(xNext * 100000d) / 100000d;
