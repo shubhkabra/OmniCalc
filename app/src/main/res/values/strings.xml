@@ -19,7 +19,8 @@
         \n
         \nPolynomial-\"5y^3 - 4y + 11 = 0\"
         \n
-        \nTrig Equation-\"cos(2a) = a^2\" \n(Solved on the interval 0 to 2 Pi)</string>
+        \nTrig-\"cos(2x) = x^2\" (Must use \'x\')
+        \n(Solved on the interval 0 to 2 Pi)</string>
     <string name="standardInfo">Enter problem by voice or typing.
         \n
         \nSyntax Help:

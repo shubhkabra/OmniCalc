@@ -142,16 +142,18 @@ public class AlgebraCalc extends AppCompatActivity {
         char variable = 'x';
         int varVal = 0;
         char[] equ = newExpr.toCharArray();
-        for (char thing: equ) {
-            int val = (int) thing;
-            if (val >= 97 && val <= 122) {
-                if (varVal != 0) {
-                    if (val != varVal) {
-                        return "Error. Only use 1 variable.";
+        if (!trig) {
+            for (char thing : equ) {
+                int val = (int) thing;
+                if (val >= 97 && val <= 122) {
+                    if (varVal != 0) {
+                        if (val != varVal) {
+                            return "Error. Only use 1 variable.";
+                        }
+                    } else {
+                        varVal = val;
+                        variable = thing;
                     }
-                } else {
-                    varVal = val;
-                    variable = thing;
                 }
             }
         }
