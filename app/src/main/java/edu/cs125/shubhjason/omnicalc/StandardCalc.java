@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -35,7 +36,13 @@ public class StandardCalc extends AppCompatActivity {
         trig.put("sine", "sin(");
         trig.put("cosine", "cos(");
         trig.put("tangent", "tan(");
-
+        final FloatingActionButton infostandard = findViewById(R.id.infobuttonstandard);
+        infostandard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StandardCalc.this, infoforstandard.class));
+            }
+        });
         final Button voiceButton = findViewById(R.id.voiceButton);
         voiceButton.setOnClickListener(new View.OnClickListener() {
             @Override

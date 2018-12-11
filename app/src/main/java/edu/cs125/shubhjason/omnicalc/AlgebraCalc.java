@@ -4,6 +4,7 @@ import android.arch.core.util.Function;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +31,13 @@ public class AlgebraCalc extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_algebra_calc);
-
+        final FloatingActionButton infoalgebra = findViewById(R.id.infobuttonalgebra);
+        infoalgebra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AlgebraCalc.this, infoforalgebra.class));
+            }
+        });
         final Button voiceButton = findViewById(R.id.voiceButton);
         voiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
