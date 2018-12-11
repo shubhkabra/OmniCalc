@@ -2,6 +2,7 @@ package edu.cs125.shubhjason.omnicalc;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Path;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -52,6 +53,14 @@ public class Options extends AppCompatActivity {
                 startActivity(Graphingintent);
             }
         });
+        FloatingActionButton info = findViewById(R.id.infobuttonoptions);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Options.this, infoforoptions.class));
+            }
+        });
+
         FloatingActionButton voicebuttonoptions = findViewById(R.id.VoiceButton);
         textoutput = findViewById(R.id.Statustext);
         voicebuttonoptions.setOnClickListener(new View.OnClickListener() {
