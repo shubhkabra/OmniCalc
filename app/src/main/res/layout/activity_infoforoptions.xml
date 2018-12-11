@@ -15,6 +15,7 @@
         android:layout_marginEnd="163dp"
         android:text="Instructions"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+        android:textColor="@color/design_default_color_primary_dark"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +37,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="381dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/optionsInfo"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+        </LinearLayout>
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

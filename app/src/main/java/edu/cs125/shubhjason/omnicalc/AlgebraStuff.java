@@ -64,7 +64,7 @@ public class AlgebraStuff {
                     fxRight = leftExpr.evaluate() - rightExpr.evaluate();
 
                     derivFx = (fxRight - fxLeft) / .01;
-                    
+
                     /** Newton's Method */
                     xNext = xThis - (fx / derivFx);
 

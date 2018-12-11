@@ -5,4 +5,5 @@
     <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
     <string name="tap_on_mic">Tap on mic to speak</string>
     <string name="speak">Push and Say problem</string>
+    <string name="optionsInfo">This is a \ntest</string>
 </resources>

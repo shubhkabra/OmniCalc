@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".infoforalgebra">
+
     <TextView
-        android:id="@+id/instructionsalgebra"
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="163dp"
@@ -14,10 +15,41 @@
         android:layout_marginEnd="163dp"
         android:text="Instructions"
         android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+        android:textColor="@color/design_default_color_primary_dark"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:scrollbarStyle="insideOverlay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="381dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/optionsInfo"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>
