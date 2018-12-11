@@ -116,29 +116,57 @@ public class AlgebraCalc extends AppCompatActivity {
                 lessWordy = lessWordy.replace(keyWord, keyWords.get(keyWord));
             }
         }
+        for (int i = 0; i < lessWordy.length(); i++) {
+            int charVal = (int)lessWordy.charAt(i);
+            Log.d("AlgFormat", "char:" + lessWordy.charAt(i));
+            if (charVal >= 65 && charVal <= 90) {
+                lessWordy = lessWordy.replace(lessWordy.charAt(i), (char) (charVal + 32));
+                Log.d("AlgFormat", "replaced:" + lessWordy.charAt(i));
+            }
+        }
         return lessWordy;
     }
 
     private static String doAlgebra(String newExpr, boolean trig) {
+        if (newExpr.indexOf("=") == -1) {
+            //Not an equation
+            return "Error. Please input an equation";
+        }
+        char variable = 'x';
+        int varVal = 0;
+        char[] equ = newExpr.toCharArray();
+        for (char thing: equ) {
+            int val = (int) thing;
+            if (val >= 97 && val <= 122) {
+                if (varVal != 0) {
+                    if (val != varVal) {
+                        return "Error. Only use 1 variable.";
+                    }
+                } else {
+                    varVal = val;
+                    variable = thing;
+                }
+            }
+        }
         String[] sides = newExpr.split("=");
         ArrayList<Double> solutions;
         String printSolns = "No Solution";
         try {
-            solutions = AlgebraStuff.solve(sides, trig);
+            solutions = AlgebraStuff.solve(sides, variable, trig);
         } catch (Exception e) {
             printSolns = "Error. Check your equation.";
             solutions = null;
         }
-        Log.d("Algebra", "numSoln" + solutions.size());
+        //Log.d("Algebra", "numSoln" + solutions.size());
         if (printSolns.equals("No Solution")) {
             // No error
             if (solutions != null && solutions.size() > 0) {
                 // There is a solution
                 if (solutions.size() > 40) {
                     // Probably Infinite Solutions
-                    printSolns = "x = all real numbers";
+                    printSolns = variable + " = all real numbers";
                 } else {
-                    printSolns = "x = " + solutions.get(0);
+                    printSolns = variable + " = " + solutions.get(0);
                     for (int i = 1; i < solutions.size(); i++) {
                         printSolns += ", " + solutions.get(i);
                     }

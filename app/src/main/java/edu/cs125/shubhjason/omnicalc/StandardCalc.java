@@ -40,16 +40,8 @@ public class StandardCalc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String newText = answerThing.getText().toString();
-                Expression newExpr = new Expression(newText);
-                Double result = newExpr.calculate();
-                String theAns;
-                if (result.isNaN()) {
-                    theAns = "Error.";
-                } else {
-                    theAns = result.toString();
-                }
                 final  TextView answer = findViewById(R.id.textView3);
-                answer.setText(theAns);
+                answer.setText(simpleCalc(newText));
             }
         });
 
@@ -79,20 +71,24 @@ public class StandardCalc extends AppCompatActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     final EditText answerThing = findViewById(R.id.edittext);
                     answerThing.setText(result.get(0));
-                    String bc = answerThing.getText().toString();
-                    Expression ab = new Expression(bc);
-                    Double xyz = ab.calculate();
-                    String theAns;
-                    if (xyz.isNaN()) {
-                        theAns = "Error.";
-                    } else {
-                        theAns = xyz.toString();
-                    }
+                    String input = answerThing.getText().toString();
                     final TextView answer = findViewById(R.id.textView3);
-                    answer.setText(theAns);
+                    answer.setText(simpleCalc(input));
                     break;
                 }
             }
         }
+    }
+
+    private String simpleCalc(String input) {
+        Expression newExpr = new Expression(input);
+        Double result = newExpr.calculate();
+        String theAns;
+        if (result.isNaN()) {
+            theAns = "Error. Invalid Input.";
+        } else {
+            theAns = result.toString();
+        }
+        return theAns;
     }
 }

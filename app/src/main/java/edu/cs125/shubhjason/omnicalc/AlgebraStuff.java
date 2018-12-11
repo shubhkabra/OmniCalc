@@ -10,7 +10,7 @@ import java.util.Collections;
 public class AlgebraStuff {
 
 
-    public static ArrayList<Double> solve(String[] sides, boolean trig) {
+    public static ArrayList<Double> solve(String[] sides, char variable, boolean trig) {
         if (sides == null || sides.length < 2) {
             return null;
         }
@@ -32,10 +32,10 @@ public class AlgebraStuff {
         Expression leftExpr, rightExpr;
         try {
             leftExpr = new ExpressionBuilder(sides[0].trim())
-                    .variables("x")
+                    .variables("" + variable)
                     .build();
             rightExpr = new ExpressionBuilder(sides[1].trim())
-                    .variables("x")
+                    .variables("" + variable)
                     .build();
 
             int numSolns = 0;
@@ -49,20 +49,20 @@ public class AlgebraStuff {
                 do {
                     iter++;
                     xThis = xNext;
-                    leftExpr.setVariable("x", xThis);
-                    rightExpr.setVariable("x", xThis);
+                    leftExpr.setVariable("" + variable, xThis);
+                    rightExpr.setVariable("" + variable, xThis);
                     fx = leftExpr.evaluate() - rightExpr.evaluate();
                     Log.d("Algebra", "initCond: " + x0 + " fx: " + fx + " iter: " + iter);
                     if (fx == 0) {
                         break;
                     }
 
-                    leftExpr.setVariable("x", xThis - .005);
-                    rightExpr.setVariable("x", xThis - .005);
+                    leftExpr.setVariable("" + variable, xThis - .005);
+                    rightExpr.setVariable("" + variable, xThis - .005);
                     fxLeft = leftExpr.evaluate() - rightExpr.evaluate();
 
-                    leftExpr.setVariable("x", xThis + .005);
-                    rightExpr.setVariable("x", xThis + .005);
+                    leftExpr.setVariable("" + variable, xThis + .005);
+                    rightExpr.setVariable("" + variable, xThis + .005);
                     fxRight = leftExpr.evaluate() - rightExpr.evaluate();
 
                     derivFx = (fxRight - fxLeft) / .01;
@@ -74,7 +74,7 @@ public class AlgebraStuff {
                     if (numSolns == 0 && !Double.isNaN(xNext)) {
                         if (!trig || (xNext >= 0 && xNext <= 2 * Math.PI)) {
                             xNext = Math.round(xNext * 100000d) / 100000d;
-                            Log.d("Algebra: ", "x = " + xNext);
+                            Log.d("Algebra: ", variable + " = " + xNext);
                             solutions.add(xNext);
                             numSolns++;
                         }
