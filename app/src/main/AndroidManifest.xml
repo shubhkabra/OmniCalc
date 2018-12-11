@@ -25,11 +25,15 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AlgebraCalc" />
         <activity android:name=".GraphingCalc" />
-        <activity android:name=".infoforoptions"
-            android:theme="@style/AppTheme.Custometheme1"
-        >
-            <intent-filter> <action android:name="android.intent.action.VIEW"/> </intent-filter>
+        <activity
+            android:name=".infoforoptions"
+            android:theme="@style/AppTheme.Custometheme1">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
         </activity>
+        <activity android:name=".infoforstandard" />
+        <activity android:name=".infoforalgebra"></activity>
     </application>
 
 </manifest>
