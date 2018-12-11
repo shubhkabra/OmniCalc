@@ -44,8 +44,6 @@ public class AlgebraStuff {
                 double fx, fxLeft, fxRight, derivFx;
                 double xThis = x0, xNext = x0;
                 int iter = 0;
-                boolean soln = true;
-
                 do {
                     iter++;
                     xThis = xNext;
@@ -56,7 +54,7 @@ public class AlgebraStuff {
                     if (fx == 0) {
                         break;
                     }
-
+                    /** Approximate derivative at "xThis" */
                     leftExpr.setVariable("" + variable, xThis - .005);
                     rightExpr.setVariable("" + variable, xThis - .005);
                     fxLeft = leftExpr.evaluate() - rightExpr.evaluate();
@@ -66,9 +64,11 @@ public class AlgebraStuff {
                     fxRight = leftExpr.evaluate() - rightExpr.evaluate();
 
                     derivFx = (fxRight - fxLeft) / .01;
-                    //System.out.println("deriv: " + derivFx);
+                    
+                    /** Newton's Method */
                     xNext = xThis - (fx / derivFx);
-                    //System.out.println("xThis: " + xThis + " xNext: " + xNext);
+
+                    // Until a zero is reached or it takes too long
                 } while (Math.abs(xNext - xThis) > .000001 && iter < 50);
                 if (iter < 50) {
                     if (numSolns == 0 && !Double.isNaN(xNext)) {
@@ -95,14 +95,5 @@ public class AlgebraStuff {
         } catch (Exception e) {
             throw e;
         }
-        /*if (solutions.size() == 0) {
-            System.out.println("No Solution");
-        } else {
-            System.out.print("x = " + solutions.get(0));
-            for (int i = 1; i < solutions.size(); i++) {
-                System.out.print(", " + solutions.get(i));
-            }
-            System.out.println();
-        }*/
     }
 }
