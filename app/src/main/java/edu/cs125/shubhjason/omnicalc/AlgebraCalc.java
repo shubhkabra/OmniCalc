@@ -91,27 +91,27 @@ public class AlgebraCalc extends AppCompatActivity {
         }
     }
 
-    private String makeMathy(final String tooWordy) {
+    public static String makeMathy(final String tooWordy) {
         HashMap<String, String> keyWords = new HashMap<>();
         keyWords.put("equals", "=");
         keyWords.put("plus", "+");
         keyWords.put("minus", "-");
         keyWords.put("times", "*");
         keyWords.put("divided by ", "/");
-        keyWords.put("squared", "^2");
-        keyWords.put("cubed", "^3");
-        keyWords.put("to the ", "^");
-        keyWords.put("second", "2");
-        keyWords.put("third", "3");
-        keyWords.put("fourth ", "4");
-        keyWords.put("fifth ", "5");
-        keyWords.put("sixth ", "6");
-        keyWords.put("seventh ", "7");
-        keyWords.put("eighth", "8");
+        keyWords.put(" squared", "^2");
+        keyWords.put(" cubed", "^3");
+        keyWords.put(" to the", "^");
+        keyWords.put(" second", "2");
+        keyWords.put(" third", "3");
+        keyWords.put(" fourth", "4");
+        keyWords.put(" fifth", "5");
+        keyWords.put(" sixth", "6");
+        keyWords.put(" seventh", "7");
+        keyWords.put(" eighth", "8");
         String lessWordy = new String(tooWordy);
         for (String keyWord: keyWords.keySet()) {
             int ind = lessWordy.indexOf(keyWord);
-            Log.d("Transform", "equ: " + lessWordy + "key: " + keyWord + " ind: " + ind);
+            Log.d("Transform", "equ: " + lessWordy + " key: " + keyWord + " ind: " + ind);
             if (ind != -1) {
                 lessWordy = lessWordy.replace(keyWord, keyWords.get(keyWord));
             }

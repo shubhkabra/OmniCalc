@@ -17,15 +17,24 @@ import org.mariuszgromada.math.mxparser.Expression;
 import org.mariuszgromada.math.mxparser.mathcollection.Calculus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class StandardCalc extends AppCompatActivity {
     private final int Reqcodespeechinput = 100;
+
+    private Map<String, String> trig = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_standard_calc);
+
+        trig.put("sign", "sin(");
+        trig.put("sine", "sin(");
+        trig.put("cosine", "cos(");
+        trig.put("tangent", "tan(");
 
         final Button voiceButton = findViewById(R.id.voiceButton);
         voiceButton.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +90,10 @@ public class StandardCalc extends AppCompatActivity {
     }
 
     private String simpleCalc(String input) {
-        Expression newExpr = new Expression(input);
+        String mathInput = AlgebraCalc.makeMathy(input);
+        final EditText answerThing = findViewById(R.id.edittext);
+        answerThing.setText(mathInput);
+        Expression newExpr = new Expression(mathInput);
         Double result = newExpr.calculate();
         String theAns;
         if (result.isNaN()) {
@@ -90,5 +102,22 @@ public class StandardCalc extends AppCompatActivity {
             theAns = result.toString();
         }
         return theAns;
+    }
+
+    private String mathy(String input) {
+        String better = input;
+        Log.d("StanFormat", "Init:" + input);
+        for (String spec: trig.keySet()) {
+            int sInd = input.indexOf(spec);
+            if (sInd != -1) {
+                int termEndIndex = better.indexOf(" ", sInd + spec.length() + 1);
+                better = better.substring(0, sInd) + trig.get(spec)
+                         + better.substring(sInd + spec.length(), termEndIndex) + ")"
+                         + better.substring(termEndIndex);
+
+            }
+        }
+        Log.d("StanFormat", "Fin:" + better);
+        return better;
     }
 }
