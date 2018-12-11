@@ -112,8 +112,8 @@ public class StandardCalc extends AppCompatActivity {
             if (sInd != -1) {
                 int termEndIndex = better.indexOf(" ", sInd + spec.length() + 1);
                 better = better.substring(0, sInd) + trig.get(spec)
-                         + better.substring(sInd + spec.length(), termEndIndex) + ")"
-                         + better.substring(termEndIndex);
+                        + better.substring(sInd + spec.length(), termEndIndex) + ")"
+                        + better.substring(termEndIndex);
 
             }
         }
