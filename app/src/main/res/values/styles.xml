@@ -19,6 +19,8 @@
     <style name="AppTheme.Custometheme1">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:fadeDuration">@android:integer/config_longAnimTime</item>
     </style>
 
 </resources>
