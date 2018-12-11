@@ -5,5 +5,26 @@
     <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
     <string name="tap_on_mic">Tap on mic to speak</string>
     <string name="speak">Push and Say problem</string>
-    <string name="optionsInfo">This is a \ntest</string>
+    <string name="optionsInfo">Welcome to OmniCalc!
+        \nSelect a mode or hit the speaker button and say a mode to begin.
+        \n
+        \nVersion 1.0 supports standard calculator functions and a single-variable equation solver.
+        \n
+        \nCalculus functions and a graphing interface are planned for future updates.</string>
+    <string name="algebraInfo">Enter equation by voice or typing.
+        \n
+        \nSyntax Help:
+        \n
+        \nSimple Equation-\"3x + 4 = 10\"
+        \n
+        \nPolynomial-\"5y^3 - 4y + 11 = 0\"
+        \n
+        \nTrig Equation-\"cos(2a) = a^2\" \n(Solved on the interval 0 to 2 Pi)</string>
+    <string name="standardInfo">Enter problem by voice or typing.
+        \n
+        \nSyntax Help:
+        \nSimple Operations-\"12*(8-5)+6\"
+        \nPowers-\"3^4 - 9^2\"
+        \nLogs-\"log(2,32)\" (base 2)
+        \nTrigonometry-\"cos(0)\"</string>
 </resources>
