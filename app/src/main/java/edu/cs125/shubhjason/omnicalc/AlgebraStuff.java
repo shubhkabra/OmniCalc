@@ -4,8 +4,12 @@ import android.util.Log;
 
 import net.objecthunter.exp4j.*;
 
+import Jama.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AlgebraStuff {
 
@@ -95,5 +99,72 @@ public class AlgebraStuff {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    public static String findDerivative(String expr, char variable, int degree) {
+        if (expr == null || expr.length() == 0 || variable == ' ' || degree < 1) {
+            return null;
+        }
+        if (degree == 1) {
+            return "0";
+        }
+        double[] initVals = new double[51];
+        int index = 0;
+        for (double i = -5.0; i <= 5.0; i += 0.2) {
+            initVals[index++] = Math.pow(i, 5);
+        }
+        Map<Double, Double> pointDerivs = new HashMap<>();
+        Expression expression;
+        try {
+            expression = new ExpressionBuilder(expr.trim())
+                    .variables("" + variable)
+                    .build();
+
+            for (double initCond : initVals) {
+                double xThis = initCond;
+                double fx, fxLeft, fxRight, derivFx;
+
+                expression.setVariable("" + variable, xThis);
+                fx = expression.evaluate();
+
+                /** Approximate derivative at "xThis" */
+                expression.setVariable("" + variable, xThis - .005);
+                fxLeft = expression.evaluate();
+
+                expression.setVariable("" + variable, xThis + .005);
+                fxRight = expression.evaluate();
+
+                derivFx = (fxRight - fxLeft) / .01;
+                Log.d("Calculus", "initCond: " + xThis + " dfx: " + derivFx);
+                pointDerivs.put(initCond, derivFx);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        double[][] A = new double[51][degree];
+        double[][] B = new double[51][1];
+        int ind = 0;
+        for (double x : pointDerivs.keySet()) {
+            for (int i = 0; i < degree; i++) {
+                A[ind][i] = Math.pow(x, i);
+            }
+            B[ind++][0] = pointDerivs.get(x);
+        }
+        Matrix matA = new Matrix(A);
+        Matrix matB = new Matrix(B);
+        Matrix normA = matA.transpose().times(matA);
+        Matrix normB = matA.transpose().times(matB);
+        double[][] soln = normA.solve(normB).getArray();
+        String buildDeriv = "";
+        for (int i = degree - 1; i >= 0; i--) {
+            if (i > 1) {
+                buildDeriv += soln[i][0] + "x^" + degree + " + ";
+            } else if (i == 1) {
+                buildDeriv += soln[i][0] + "x" + " + ";
+            } else {
+                buildDeriv += soln[i][0];
+            }
+        }
+        return buildDeriv;
     }
 }

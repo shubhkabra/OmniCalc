@@ -12,13 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.mariuszgromada.math.mxparser.Expression;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class GraphingCalc extends AppCompatActivity {
     private final int Reqcodespeechinput = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,14 +36,14 @@ public class GraphingCalc extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String newText = answerThing.getText().toString();
-                Expression newExpr = new Expression(newText);
-                Double result = newExpr.calculate();
-                String theAns = result.toString();
+                String mathExpr = AlgebraCalc.makeMathy(newText);
+                String theAns = doDerivatives(mathExpr);
                 final  TextView answer = findViewById(R.id.textView3);
                 answer.setText(theAns);
             }
         });
     }
+
     private void promptspeechinput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -70,10 +69,41 @@ public class GraphingCalc extends AppCompatActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     final EditText answerThing = findViewById(R.id.edittext);
                     answerThing.setText(result.get(0));
+                    String mathExpr = AlgebraCalc.makeMathy(result.get(0));
+                    String theAns = doDerivatives(mathExpr);
+                    final  TextView answer = findViewById(R.id.textView3);
+                    answer.setText(theAns);
                     break;
                 }
             }
 
         }
+    }
+
+    private String doDerivatives(String theExpr) {
+        char variable = 'x';
+        int varVal = 0;
+        char[] equ = theExpr.toCharArray();
+        for (char thing : equ) {
+            int val = (int) thing;
+            if (val >= 97 && val <= 122) {
+                if (varVal != 0) {
+                    if (val != varVal) {
+                        return "Error. Only use 1 variable.";
+                    }
+                } else {
+                    varVal = val;
+                    variable = thing;
+                }
+            }
+        }
+        // find degree
+        String deriv;
+        try {
+            deriv = AlgebraStuff.findDerivative(theExpr, variable, 2);
+        } catch (Exception e) {
+            deriv = "Error. Check your equation.";
+        }
+        return deriv;
     }
 }

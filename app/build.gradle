@@ -29,4 +29,5 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation files('libs/MathParser.org-mXparser-v.4.2.0-jdk.1.8.jar')
     implementation files('libs/exp4j-0.4.8.jar')
+    implementation files('libs/Jama-1.0.3.jar')
 }

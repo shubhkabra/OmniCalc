@@ -45,14 +45,14 @@ public class Options extends AppCompatActivity {
                 startActivity(Algebraintent);
             }
         });
-        /*final Button graphingbutton = findViewById(R.id.graphing);
+        final Button graphingbutton = findViewById(R.id.graphing);
         graphingbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent Graphingintent = new Intent(Options.this, GraphingCalc.class);
                 startActivity(Graphingintent);
             }
-        });*/
+        });
         FloatingActionButton info = findViewById(R.id.infobuttonoptions);
         info.setOnClickListener(new View.OnClickListener() {
             @Override
