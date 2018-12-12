@@ -102,10 +102,10 @@ public class AlgebraStuff {
     }
 
     public static String findDerivative(String expr, char variable, int degree) {
-        if (expr == null || expr.length() == 0 || variable == ' ' || degree < 1) {
+        if (expr == null || expr.length() == 0 || variable == ' ' || degree < 0) {
             return null;
         }
-        if (degree == 1) {
+        if (degree == 0) {
             return "0";
         }
         double[] initVals = new double[51];
@@ -155,14 +155,29 @@ public class AlgebraStuff {
         Matrix normA = matA.transpose().times(matA);
         Matrix normB = matA.transpose().times(matB);
         double[][] soln = normA.solve(normB).getArray();
-        String buildDeriv = "";
-        for (int i = degree - 1; i >= 0; i--) {
-            if (i > 1) {
-                buildDeriv += soln[i][0] + "x^" + degree + " + ";
-            } else if (i == 1) {
-                buildDeriv += soln[i][0] + "x" + " + ";
+        for (int i = 0; i < soln.length; i++) {
+            if (Math.abs(soln[i][0]) < .01) {
+                soln[i][0] = 0;
             } else {
-                buildDeriv += soln[i][0];
+                soln[i][0] = Math.round(soln[i][0] * 100000d) / 100000d;
+            }
+            Log.d("Derivative", i + "-" + soln[i][0]);
+        }
+        String buildDeriv = "";
+        int terms = 0;
+        for (int i = degree - 1; i >= 0; i--) {
+            if (soln[i][0] != 0.0) {
+                if (terms >= 1) {
+                    buildDeriv += " + ";
+                }
+                if (i > 1) {
+                    buildDeriv += soln[i][0] + "x^" + i;
+                } else if (i == 1) {
+                    buildDeriv += soln[i][0] + "x";
+                } else {
+                    buildDeriv += soln[i][0];
+                }
+                terms++;
             }
         }
         return buildDeriv;

@@ -6,6 +6,7 @@ import android.speech.RecognizerIntent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +39,7 @@ public class GraphingCalc extends AppCompatActivity {
                 String newText = answerThing.getText().toString();
                 String mathExpr = AlgebraCalc.makeMathy(newText);
                 String theAns = doDerivatives(mathExpr);
-                final  TextView answer = findViewById(R.id.textView3);
+                final TextView answer = findViewById(R.id.textView3);
                 answer.setText(theAns);
             }
         });
@@ -71,7 +72,7 @@ public class GraphingCalc extends AppCompatActivity {
                     answerThing.setText(result.get(0));
                     String mathExpr = AlgebraCalc.makeMathy(result.get(0));
                     String theAns = doDerivatives(mathExpr);
-                    final  TextView answer = findViewById(R.id.textView3);
+                    final TextView answer = findViewById(R.id.textView3);
                     answer.setText(theAns);
                     break;
                 }
@@ -97,10 +98,25 @@ public class GraphingCalc extends AppCompatActivity {
                 }
             }
         }
-        // find degree
+        int degree = 0;
+        if (theExpr.indexOf(variable) != -1) {
+            degree = 1;
+        }
+        String[] findDegree = theExpr.split("x");
+        Log.d("Derivative", "leng:" + findDegree.length);
+        for (int i = 1; i < findDegree.length; i++) {
+            Log.d("Derivative", "str:" + findDegree[i]);
+            if (findDegree[i].length() >= 2 && findDegree[i].charAt(0) == '^') {
+                int thisDeg = Character.getNumericValue(findDegree[i].charAt(1));
+                if (thisDeg > degree) {
+                    degree = thisDeg;
+                }
+            }
+        }
+        Log.d("Derivative", "deg:" + degree);
         String deriv;
         try {
-            deriv = AlgebraStuff.findDerivative(theExpr, variable, 2);
+            deriv = AlgebraStuff.findDerivative(theExpr, variable, degree);
         } catch (Exception e) {
             deriv = "Error. Check your equation.";
         }
