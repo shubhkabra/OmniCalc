@@ -108,11 +108,19 @@ public class AlgebraStuff {
         if (degree == 0) {
             return "0";
         }
+        /* Function 1
         double[] initVals = new double[51];
         int index = 0;
         for (double i = -5.0; i <= 5.0; i += 0.2) {
             initVals[index++] = Math.pow(i, 5);
+        }*/
+        // Function 2
+        double[] initVals = new double[51];
+        int index = 0;
+        for (double i = -10.0; i <= 10.0; i += 0.4) {
+            initVals[index++] = i * 10;
         }
+
         Map<Double, Double> pointDerivs = new HashMap<>();
         Expression expression;
         try {
