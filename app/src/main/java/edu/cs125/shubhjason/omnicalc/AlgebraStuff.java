@@ -13,8 +13,8 @@ import java.util.Map;
 
 public class AlgebraStuff {
 
-    private static final int NUM_PTS_DERIV = 101;
-    private static int function = 3;
+    private static final int NUM_PTS_DERIV = 801;
+    private static int function = 2;
 
     public static ArrayList<Double> solve(String[] sides, char variable, boolean trig) {
         if (sides == null || sides.length < 2) {
@@ -121,14 +121,14 @@ public class AlgebraStuff {
         /** Function 2 - Linear */
         if (function == 2) {
             int index = 0;
-            for (double i = -5.0; i <= 5.0; i += 0.2) {
-                initVals[index++] = i * 200;
+            for (double i = -10.0; i <= 10.0; i += 0.025) {
+                initVals[index++] = i * 1;
             }
         }
         /** Function 3 - Hybrid */
         if (function == 3) {
             int index = 0;
-            for (double i = -5.0; i <= 5.0; i += 0.1) {
+            for (double i = -5.0; i <= 5.0; i += 0.05) {
                 if (i >= -1.0 && i <= 1.0) {
                     initVals[index++] = i * 1;
                 } else {
@@ -181,7 +181,7 @@ public class AlgebraStuff {
         Matrix normB = matA.transpose().times(matB);
         double[][] soln = normA.solve(normB).getArray();
         for (int i = 0; i < soln.length; i++) {
-            if (Math.abs(soln[i][0]) < .01) {
+            if (Math.abs(soln[i][0]) < .05) {
                 soln[i][0] = 0;
             } else {
                 soln[i][0] = Math.round(soln[i][0] * 100d) / 100d;
@@ -194,14 +194,20 @@ public class AlgebraStuff {
         for (int i = degree - 1; i >= 0; i--) {
             if (soln[i][0] != 0.0) {
                 if (terms >= 1) {
-                    buildDeriv += " + ";
+                    if (soln[i][0] > 0) {
+                        buildDeriv += " + ";
+                    } else {
+                        buildDeriv += " - ";
+                    }
+                } else if (terms == 0 && soln[i][0] < 0) {
+                    buildDeriv += "-";
                 }
                 if (i > 1) {
-                    buildDeriv += soln[i][0] + "x^" + i;
+                    buildDeriv += Math.abs(soln[i][0]) + "" + variable + "^" + i;
                 } else if (i == 1) {
-                    buildDeriv += soln[i][0] + "x";
+                    buildDeriv += Math.abs(soln[i][0]) + "" + variable;
                 } else {
-                    buildDeriv += soln[i][0];
+                    buildDeriv += Math.abs(soln[i][0]);
                 }
                 terms++;
             }

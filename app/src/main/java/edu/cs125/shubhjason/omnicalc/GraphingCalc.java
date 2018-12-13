@@ -102,7 +102,7 @@ public class GraphingCalc extends AppCompatActivity {
         if (theExpr.indexOf(variable) != -1) {
             degree = 1;
         }
-        String[] findDegree = theExpr.split("x");
+        String[] findDegree = theExpr.split(Character.toString(variable));
         Log.d("Derivative", "leng:" + findDegree.length);
         for (int i = 1; i < findDegree.length; i++) {
             Log.d("Derivative", "str:" + findDegree[i]);
@@ -125,9 +125,9 @@ public class GraphingCalc extends AppCompatActivity {
             }
         }
         Log.d("Derivative", "deg:" + degree);
-        String deriv;
+        String deriv = "d/d" + variable + " = ";
         try {
-            deriv = AlgebraStuff.findDerivative(theExpr, variable, degree);
+            deriv += AlgebraStuff.findDerivative(theExpr, variable, degree);
         } catch (Exception e) {
             deriv = "Error. Check your equation.";
         }
