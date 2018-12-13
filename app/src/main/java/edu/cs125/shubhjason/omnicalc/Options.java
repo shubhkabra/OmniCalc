@@ -101,7 +101,7 @@ public class Options extends AppCompatActivity {
                     } else if (result.contains("Standard") || result.contains("standard")) {
                         Intent standardintent = new Intent(Options.this, StandardCalc.class);
                         startActivity(standardintent);
-                    } else if (result.contains("graphing") || result.contains("Graphing")) {
+                    } else if (result.contains("derivative") || result.contains("Derivative")) {
                         Intent graphingintent = new Intent(Options.this, GraphingCalc.class);
                         startActivity(graphingintent);
                     }
