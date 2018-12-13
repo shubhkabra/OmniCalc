@@ -77,8 +77,8 @@ public class GraphingCalc extends AppCompatActivity {
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     final EditText answerThing = findViewById(R.id.edittext);
-                    answerThing.setText(result.get(0));
                     String mathExpr = AlgebraCalc.makeMathy(result.get(0));
+                    answerThing.setText(mathExpr);
                     String theAns = doDerivatives(mathExpr);
                     final TextView answer = findViewById(R.id.textView3);
                     answer.setText(theAns);
