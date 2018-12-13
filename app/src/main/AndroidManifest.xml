@@ -33,7 +33,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".infoforstandard" />
-        <activity android:name=".infoforalgebra"></activity>
+        <activity android:name=".infoforalgebra" />
+        <activity android:name=".infoforDerivative"></activity>
     </application>
 
 </manifest>

@@ -28,4 +28,11 @@
         \nPowers-\"3^4 - 9^2\"
         \nLogs-\"log(2,32)\" (base 2)
         \nTrigonometry-\"cos(0)\"</string>
+    <string name="derivInfo">Enter problem by voice or typing.
+        \nCurrently only supports polynomial derivation.
+        \n
+        \nUses least-square regression to find the derivatives.
+        \n
+        \nSyntax Help:
+        \nEx: \"5x^4 - 12x^3 + x^2\"</string>
 </resources>

@@ -8,6 +8,19 @@
     tools:context=".Options">
 
     <Button
+        android:id="@+id/button"
+        android:clickable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="More Coming Soon!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/graphing" />
+
+    <Button
         android:id="@+id/normie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +28,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:gravity="center_vertical|center_horizontal|center"
-        android:text="Normal"
+        android:text="Standard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -94,8 +107,8 @@
         android:id="@+id/infobuttonoptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="17dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

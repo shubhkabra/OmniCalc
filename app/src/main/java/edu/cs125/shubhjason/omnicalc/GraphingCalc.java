@@ -3,7 +3,7 @@ package edu.cs125.shubhjason.omnicalc;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
-import android.support.design.widget.TextInputLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +23,14 @@ public class GraphingCalc extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphing_calc);
+
+        final FloatingActionButton infoDeriv = findViewById(R.id.infobuttonDerivative);
+        infoDeriv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(GraphingCalc.this, infoforDerivative.class));
+            }
+        });
 
         final Button voiceButton = findViewById(R.id.voiceButton);
         voiceButton.setOnClickListener(new View.OnClickListener() {
