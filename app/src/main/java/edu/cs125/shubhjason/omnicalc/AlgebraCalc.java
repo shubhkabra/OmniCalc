@@ -115,6 +115,8 @@ public class AlgebraCalc extends AppCompatActivity {
         keyWords.put(" sixth", "6");
         keyWords.put(" seventh", "7");
         keyWords.put(" eighth", "8");
+        keyWords.put(" ninth", "9");
+        keyWords.put(" tenth", "10");
         String lessWordy = new String(tooWordy);
         for (String keyWord: keyWords.keySet()) {
             int ind = lessWordy.indexOf(keyWord);

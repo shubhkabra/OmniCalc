@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class AlgebraStuff {
 
+    private static final int NUM_PTS_DERIV = 101;
+    private static int function = 3;
 
     public static ArrayList<Double> solve(String[] sides, char variable, boolean trig) {
         if (sides == null || sides.length < 2) {
@@ -108,17 +110,31 @@ public class AlgebraStuff {
         if (degree == 0) {
             return "0";
         }
-        /* Function 1
-        double[] initVals = new double[51];
-        int index = 0;
-        for (double i = -5.0; i <= 5.0; i += 0.2) {
-            initVals[index++] = Math.pow(i, 5);
-        }*/
-        // Function 2
-        double[] initVals = new double[51];
-        int index = 0;
-        for (double i = -10.0; i <= 10.0; i += 0.4) {
-            initVals[index++] = i * 10;
+        double[] initVals = new double[NUM_PTS_DERIV];
+        /** Function 1 - Exponential. */
+        if (function == 1) {
+            int index = 0;
+            for (double i = -5.0; i <= 5.0; i += 0.2) {
+                initVals[index++] = Math.pow(i, 5);
+            }
+        }
+        /** Function 2 - Linear */
+        if (function == 2) {
+            int index = 0;
+            for (double i = -5.0; i <= 5.0; i += 0.2) {
+                initVals[index++] = i * 200;
+            }
+        }
+        /** Function 3 - Hybrid */
+        if (function == 3) {
+            int index = 0;
+            for (double i = -5.0; i <= 5.0; i += 0.1) {
+                if (i >= -1.0 && i <= 1.0) {
+                    initVals[index++] = i * 1;
+                } else {
+                    initVals[index++] = Math.pow(i, 3);
+                }
+            }
         }
 
         Map<Double, Double> pointDerivs = new HashMap<>();
@@ -149,8 +165,8 @@ public class AlgebraStuff {
         } catch (Exception e) {
             throw e;
         }
-        double[][] A = new double[51][degree];
-        double[][] B = new double[51][1];
+        double[][] A = new double[NUM_PTS_DERIV][degree];
+        double[][] B = new double[NUM_PTS_DERIV][1];
         int ind = 0;
         for (double x : pointDerivs.keySet()) {
             for (int i = 0; i < degree; i++) {
@@ -158,6 +174,7 @@ public class AlgebraStuff {
             }
             B[ind++][0] = pointDerivs.get(x);
         }
+        /** Do cool linear algebra least-squares things.*/
         Matrix matA = new Matrix(A);
         Matrix matB = new Matrix(B);
         Matrix normA = matA.transpose().times(matA);
@@ -167,10 +184,11 @@ public class AlgebraStuff {
             if (Math.abs(soln[i][0]) < .01) {
                 soln[i][0] = 0;
             } else {
-                soln[i][0] = Math.round(soln[i][0] * 100000d) / 100000d;
+                soln[i][0] = Math.round(soln[i][0] * 100d) / 100d;
             }
             Log.d("Derivative", i + "-" + soln[i][0]);
         }
+        /** Build return expression. */
         String buildDeriv = "";
         int terms = 0;
         for (int i = degree - 1; i >= 0; i--) {

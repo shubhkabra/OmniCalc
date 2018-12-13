@@ -107,7 +107,18 @@ public class GraphingCalc extends AppCompatActivity {
         for (int i = 1; i < findDegree.length; i++) {
             Log.d("Derivative", "str:" + findDegree[i]);
             if (findDegree[i].length() >= 2 && findDegree[i].charAt(0) == '^') {
-                int thisDeg = Character.getNumericValue(findDegree[i].charAt(1));
+                String degExp = findDegree[i].substring(1,2);
+                int ind = 2;
+                while (ind < findDegree[i].length()) {
+                    int charVal = (int) findDegree[i].charAt(ind);
+                    if (charVal >= 48 && charVal <= 57) {
+                        degExp += findDegree[i].substring(ind,ind + 1);
+                        ind++;
+                    } else {
+                        break;
+                    }
+                }
+                int thisDeg = Integer.parseInt(degExp);
                 if (thisDeg > degree) {
                     degree = thisDeg;
                 }
