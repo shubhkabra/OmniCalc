@@ -52,6 +52,7 @@ public class AlgebraCalc extends AppCompatActivity {
             public void onClick(View v) {
                 String fullExpression = answerThing.getText().toString();
                 String newExpr = makeMathy(fullExpression);
+                answerThing.setText(newExpr);
                 boolean triggy = hasTrig(newExpr);
                 final TextView answerBox = findViewById(R.id.textView3);
                 answerBox.setText(doAlgebra(newExpr, triggy));
@@ -104,7 +105,8 @@ public class AlgebraCalc extends AppCompatActivity {
         keyWords.put("plus", "+");
         keyWords.put("minus", "-");
         keyWords.put("times", "*");
-        keyWords.put("divided by ", "/");
+        keyWords.put(" multiplied by", "*");
+        keyWords.put(" divided by", "/");
         keyWords.put(" squared", "^2");
         keyWords.put(" cubed", "^3");
         keyWords.put(" to the", "^");
@@ -117,6 +119,24 @@ public class AlgebraCalc extends AppCompatActivity {
         keyWords.put(" eighth", "8");
         keyWords.put(" ninth", "9");
         keyWords.put(" tenth", "10");
+        keyWords.put(" 2nd", "2");
+        keyWords.put(" 3rd", "3");
+        keyWords.put(" 4th", "4");
+        keyWords.put(" 5th", "5");
+        keyWords.put(" 6th", "6");
+        keyWords.put(" 7th", "7");
+        keyWords.put(" 8th", "8");
+        keyWords.put(" 9th", "9");
+        keyWords.put(" 10th", "10");
+        keyWords.put(" two", "2");
+        keyWords.put(" three", "3");
+        keyWords.put(" four", "4");
+        keyWords.put(" five", "5");
+        keyWords.put(" six", "6");
+        keyWords.put(" seven", "7");
+        keyWords.put(" eight", "8");
+        keyWords.put(" nine", "9");
+        keyWords.put(" ten", "10");
         String lessWordy = new String(tooWordy);
         for (String keyWord: keyWords.keySet()) {
             int ind = lessWordy.indexOf(keyWord);
@@ -133,7 +153,37 @@ public class AlgebraCalc extends AppCompatActivity {
                 Log.d("AlgFormat", "replaced:" + lessWordy.charAt(i));
             }
         }
+        lessWordy = trigMadness(lessWordy);
         return lessWordy;
+    }
+
+    public static String trigMadness(String withTrig) {
+        HashMap<String, String> keyWords = new HashMap<>();
+        keyWords.put("cosine ", "cos(");
+        keyWords.put("sine ", "sin(");
+        keyWords.put("sign ", "sin(");
+        keyWords.put("tangent ", "tan(");
+        String lessTriggy = withTrig;
+        for (String keyWord: keyWords.keySet()) {
+            int ind = lessTriggy.indexOf(keyWord);
+            if (keyWord.equals("sine ") && ind != -1) {
+                if (ind >= 2 && lessTriggy.charAt(1) == 'o') {
+                    ind = -1;
+                }
+            }
+            Log.d("Transform", "equ: " + lessTriggy + " key: " + keyWord + " ind: " + ind);
+            if (ind != -1) {
+                lessTriggy = lessTriggy.replace(keyWord, keyWords.get(keyWord));
+                int endInd = lessTriggy.indexOf(" ", ind);
+                if (endInd == -1) {
+                    lessTriggy = lessTriggy + ")";
+                } else {
+                    lessTriggy = lessTriggy.substring(0, endInd) + ")"
+                            + lessTriggy.substring(endInd);
+                }
+            }
+        }
+        return lessTriggy;
     }
 
     private static String doAlgebra(String newExpr, boolean trig) {

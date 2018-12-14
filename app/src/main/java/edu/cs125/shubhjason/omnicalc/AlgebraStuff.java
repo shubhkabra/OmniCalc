@@ -114,7 +114,7 @@ public class AlgebraStuff {
         /** Function 1 - Exponential. */
         if (function == 1) {
             int index = 0;
-            for (double i = -5.0; i <= 5.0; i += 0.2) {
+            for (double i = -5.0; i <= 5.0; i += 0.0125) {
                 initVals[index++] = Math.pow(i, 5);
             }
         }
@@ -128,7 +128,7 @@ public class AlgebraStuff {
         /** Function 3 - Hybrid */
         if (function == 3) {
             int index = 0;
-            for (double i = -5.0; i <= 5.0; i += 0.05) {
+            for (double i = -5.0; i <= 5.0; i += 0.0125) {
                 if (i >= -1.0 && i <= 1.0) {
                     initVals[index++] = i * 1;
                 } else {

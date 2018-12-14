@@ -46,6 +46,7 @@ public class GraphingCalc extends AppCompatActivity {
             public void onClick(View v) {
                 String newText = answerThing.getText().toString();
                 String mathExpr = AlgebraCalc.makeMathy(newText);
+                answerThing.setText(mathExpr);
                 String theAns = doDerivatives(mathExpr);
                 final TextView answer = findViewById(R.id.textView3);
                 answer.setText(theAns);
